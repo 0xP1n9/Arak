@@ -18,19 +18,19 @@ namespace Arak.DAL.Repository.Implementation
 			_context = context;
 		}
 
-		public async Task<IEnumerable<T>> GetAllAsync()
+		public virtual async Task<IEnumerable<T>> GetAllAsync()
 			=> await _context.Set<T>().ToListAsync();
 
-		public async Task<T> GetByIdAsync(int id)
+		public virtual async Task<T> GetByIdAsync(int id)
 			=> await _context.Set<T>().FindAsync(id);
 
-		public async Task CreateAsync(T entity)
+		public virtual async Task CreateAsync(T entity)
 			=> await _context.Set<T>().AddAsync(entity);
 
-		public void Update(T entity)
+		public virtual void Update(T entity)
 			=> _context.Set<T>().Update(entity);
 
-		public void Delete(T entity)
+		public virtual void Delete(T entity)
 			=> _context.Set<T>().Remove(entity);
 	}
 }

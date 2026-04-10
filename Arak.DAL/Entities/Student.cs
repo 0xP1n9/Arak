@@ -15,7 +15,7 @@ namespace Arak.DAL.Entities
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public bool Status { get; set; } = true;
-        public byte[] Image { get; set; }
+        public string? Image { get; set; }
 
         [ForeignKey("Parent")]
         public int? ParentId { get; set; }
