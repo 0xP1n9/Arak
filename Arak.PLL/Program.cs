@@ -25,12 +25,13 @@ namespace Arak.PLL
 			builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 			builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 			builder.Services.AddScoped<ITimetableRepository,TimetableRepository>();
+			builder.Services.AddScoped<IClassRepository, ClassRepository>();
 
 
 			//Services
 			builder.Services.AddScoped<IStudentService, StudentService>();
 			builder.Services.AddScoped<ITimetableService, TimetableService>();
-
+			builder.Services.AddScoped<IClassService, ClassService>();
 
 			//add Swagger UI Service
 			builder.Services.AddEndpointsApiExplorer();

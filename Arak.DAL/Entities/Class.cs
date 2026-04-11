@@ -11,6 +11,7 @@ namespace Arak.DAL.Entities
 
         [ForeignKey("TimeTable")]
         public int? TimeTableId { get; set; }
+        [JsonIgnore]
         public TimeTable TimeTable { get; set; }
 
         [JsonIgnore]
