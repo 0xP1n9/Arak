@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Arak.DAL.Entities
 {
@@ -10,13 +11,18 @@ namespace Arak.DAL.Entities
 
         [ForeignKey("Semester")]
         public int? SemesterId { get; set; }
-        public Semester Semester { get; set; }
+        [JsonIgnore]
+        public Semester? Semester { get; set; }
 
         [ForeignKey("TimeTable")]
         public int? TimeTableId { get; set; }
-        public TimeTable TimeTable { get; set; }
+        [JsonIgnore]
+        public TimeTable? TimeTable { get; set; }
 
+        [JsonIgnore]
         public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
+
+        [JsonIgnore]
         public ICollection<StudentSubject> Students { get; set; } = new List<StudentSubject>();
     }
 }
