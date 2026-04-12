@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Arak.DAL.Entities
 {
@@ -11,20 +12,23 @@ namespace Arak.DAL.Entities
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime DeadLine { get; set; }
-        public string State { get; set; }
+        public string? State { get; set; }
 
 
         [ForeignKey("Teacher")]
         public int? TeacherId { get; set; }
-        public Teacher Teacher { get; set; }
+        [JsonIgnore]
+        public Teacher? Teacher { get; set; }
 
         [ForeignKey("Class")]
         public int? ClassId { get; set; }
-        public Class Class { get; set; }
+        [JsonIgnore]
+        public Class? Class { get; set; }
 
         [ForeignKey("Semester")]
         public int? SemesterId { get; set; }
-        public Semester Semester { get; set; }
+        [JsonIgnore]
+        public Semester? Semester { get; set; }
 
 
     }
