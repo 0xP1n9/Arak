@@ -21,5 +21,10 @@ namespace Arak.BLL.Service.Implementation
         {
              return await _classRepository.GetByIdAsync(id);
         }
+
+        public async Task<Class> CreateClass(Class classes)
+        {
+            return await _classRepository.CreateAsync(classes);
+        }
     }
 }

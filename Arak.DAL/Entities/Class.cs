@@ -12,7 +12,7 @@ namespace Arak.DAL.Entities
         [ForeignKey("TimeTable")]
         public int? TimeTableId { get; set; }
         [JsonIgnore]
-        public TimeTable TimeTable { get; set; }
+        public TimeTable? TimeTable { get; set; }
 
         [JsonIgnore]
         public ICollection<Student> Students { get; set; } = new List<Student>();

@@ -10,5 +10,6 @@ namespace Arak.BLL.Service.Abstraction
     public interface IClassService
     {
         Task<Class> GetClassById(int id);
+        Task<Class> CreateClass(Class classes);
     }
 }

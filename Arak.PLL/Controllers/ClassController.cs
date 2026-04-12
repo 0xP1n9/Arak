@@ -1,4 +1,5 @@
 ﻿using Arak.BLL.Service.Abstraction;
+using Arak.DAL.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,13 @@ namespace Arak.PLL.Controllers
             }
 
             return Ok(classes);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateClass(Class classes)
+        {
+            var CreatedClass= await _classService.CreateClass(classes);
+            return Ok(CreatedClass);
         }
     }
 }
