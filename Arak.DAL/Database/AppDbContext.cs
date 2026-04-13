@@ -28,6 +28,25 @@ namespace Arak.DAL.Database
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            modelBuilder.Entity<Attendance>()
+            .Property(e => e.DayOfWeek)
+            .HasConversion<string>();
+
+            modelBuilder.Entity<Attendance>()
+            .Property(e => e.Date)
+            .HasColumnType("date")
+            .HasDefaultValueSql("GETDATE()");
+
+            modelBuilder.Entity<Attendance>()
+            .Property(e => e.ArrivalTime)
+            .HasColumnType("time")
+            .HasDefaultValueSql("GETDATE()");
+
+            modelBuilder.Entity<Attendance>()
+            .Property(e => e.DepartureTime)
+            .HasColumnType("time")
+            .HasDefaultValueSql("GETDATE()");
+
             modelBuilder.Entity<TimeTable>()
             .Property(e => e.DayOfWeek)
             .HasConversion<string>();
