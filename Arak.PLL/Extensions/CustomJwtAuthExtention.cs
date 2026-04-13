@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 namespace Arak.PLL.Extensions
@@ -55,7 +55,7 @@ namespace Arak.PLL.Extensions
                     Description = "Enter the JWT Key"
                 });
 
-                /*o.AddSecurityRequirement(new OpenApiSecurityRequirement() {
+                o.AddSecurityRequirement(new OpenApiSecurityRequirement() {
                     {
                        new OpenApiSecurityScheme()
                        {
@@ -70,7 +70,7 @@ namespace Arak.PLL.Extensions
                        },
                        new List<string>()
                     }
-                });*/
+                });
             });
         }
     }
