@@ -2,8 +2,11 @@
 using Arak.BLL.Service.Abstraction;
 using Arak.BLL.Service.Implementation;
 using Arak.DAL.Database;
+using Arak.DAL.Entities;
 using Arak.DAL.Repository.Abstraction;
 using Arak.DAL.Repository.Implementation;
+using Arak.PLL.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Arak.PLL
@@ -21,6 +24,8 @@ namespace Arak.PLL
 			builder.Services.AddDbContext<AppDbContext>(op =>
 			op.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+			builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+
 			//Repositories
 			builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 			builder.Services.AddScoped<IStudentRepository, StudentRepository>();
@@ -30,6 +35,7 @@ namespace Arak.PLL
 			builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 			builder.Services.AddScoped<ISemesterRepository, SemesterRepository>();
 			builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+			builder.Services.AddScoped<IParentRepository, ParentRepository>();
 
 			//Services
 			builder.Services.AddScoped<IStudentService, StudentService>();
@@ -39,12 +45,16 @@ namespace Arak.PLL
 			builder.Services.AddScoped<ISubjectService, SubjectService>();
 			builder.Services.AddScoped<ISemesterService, SemesterService>();
 			builder.Services.AddScoped<IAttendanceService, AttendanceService>();
+			builder.Services.AddScoped<IParentService, ParentService>();
 
 			//add Swagger UI Service
 			builder.Services.AddEndpointsApiExplorer();
-			builder.Services.AddSwaggerGen();
+            //builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGenJwtAuth();
 
-			var app = builder.Build();
+            builder.Services.AddCustomJwtAuth(builder.Configuration);
+
+            var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
@@ -53,6 +63,7 @@ namespace Arak.PLL
 				app.UseSwaggerUI();
 			}
 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 

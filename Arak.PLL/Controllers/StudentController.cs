@@ -1,5 +1,6 @@
 ﻿using Arak.BLL.Service.Abstraction;
 using Arak.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace ARAK.PLL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+	[Authorize]
     public class StudentsController : ControllerBase
     {
 		private readonly IStudentService _studentService;
