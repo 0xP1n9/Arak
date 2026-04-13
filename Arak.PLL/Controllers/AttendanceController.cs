@@ -35,6 +35,17 @@ namespace Arak.PLL.Controllers
             return Ok(attendance);
         }
 
+        [HttpGet("SearchAttendancesByClassId/{classId}")]
+        public async Task<IActionResult> GetAttendanceByClassId(int classId)
+        {
+            var attendances = await _attendanceService.GetAttendanceByClassId(classId);
+            if (attendances.Any() == false)
+            {
+                return NotFound($"The ClassId {classId} is invalid!");
+            }
+            return Ok(attendances);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateAttendance(Attendance attendance)
         {

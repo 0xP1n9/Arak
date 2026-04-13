@@ -33,6 +33,10 @@ namespace Arak.DAL.Database
             .HasConversion<string>();
 
             modelBuilder.Entity<Attendance>()
+            .Property(e => e.Status)
+            .HasConversion<string>();
+
+            modelBuilder.Entity<Attendance>()
             .Property(e => e.Date)
             .HasColumnType("date")
             .HasDefaultValueSql("GETDATE()");

@@ -9,5 +9,6 @@ namespace Arak.DAL.Repository.Abstraction
 {
     public interface IAttendanceRepository : IGenericRepository<Attendance>
     {
+        Task<ICollection<Attendance>> GetAttendanceByClassId(int classId);
     }
 }

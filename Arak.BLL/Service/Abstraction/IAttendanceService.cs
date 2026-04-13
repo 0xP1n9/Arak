@@ -11,6 +11,7 @@ namespace Arak.BLL.Service.Abstraction
     {
         Task<IEnumerable<Attendance>> GetAllAttendances();
         Task<Attendance> GetAttendanceById(int id);
+        Task<ICollection<Attendance>> GetAttendanceByClassId(int classId);
         Task<Attendance> CreateAttendance(Attendance attendance);
         Task<Attendance> UpdateAttendance(Attendance attendance);
         Task<bool> DeleteAttendance(int id);

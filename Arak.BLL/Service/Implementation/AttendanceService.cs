@@ -28,6 +28,11 @@ namespace Arak.BLL.Service.Implementation
             return await _attendanceRepository.GetByIdAsync(id);
         }
 
+        public async Task<ICollection<Attendance>> GetAttendanceByClassId(int classId)
+        {
+            return await _attendanceRepository.GetAttendanceByClassId(classId);
+        }
+
         public async Task<Attendance> CreateAttendance(Attendance attendance)
         {
             return await _attendanceRepository.CreateAsync(attendance);
