@@ -25,7 +25,6 @@ namespace Arak.BLL.Service.Implementation
             if (user == null)
                 return false;
 
-            // 👇 هنا المكان الصح
             user.IsDeleted = true;
 
             var result = await _userManager.UpdateAsync(user);

@@ -6,6 +6,7 @@ using Arak.DAL.Entities;
 using Arak.DAL.Repository.Abstraction;
 using Arak.DAL.Repository.Implementation;
 using Arak.PLL.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,8 +27,18 @@ namespace Arak.PLL
 
 			builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
-			//Repositories
-			builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Default", policy =>
+                    policy.RequireAuthenticatedUser());
+
+                options.InvokeHandlersAfterFailure = false;
+            });
+
+            builder.Services.AddSingleton<IAuthorizationHandler, AdminOverrideHandler>();
+
+            //Repositories
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 			builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 			builder.Services.AddScoped<ITimetableRepository,TimetableRepository>();
 			builder.Services.AddScoped<IClassRepository, ClassRepository>();

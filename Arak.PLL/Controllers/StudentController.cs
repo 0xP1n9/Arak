@@ -20,7 +20,7 @@ namespace ARAK.PLL.Controllers
 		}
 
 		[HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Parent")]
         public async Task<IActionResult> GetAllStudents()
         {
             var allStudents = await _studentService.GetAllStudentsAsync();
