@@ -1,6 +1,7 @@
 ﻿using Arak.BLL.Service.Abstraction;
 using Arak.BLL.Service.Implementation;
 using Arak.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> GetAllAttendances()
         {
             var attendance = await _attendanceService.GetAllAttendances();
@@ -24,6 +26,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Parent,Admin")]
         public async Task<IActionResult> GetAttendanceById(int id)
         {
             var attendance = await _attendanceService.GetAttendanceById(id);
@@ -36,6 +39,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("SearchAttendancesByClassId/{classId}")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> GetAttendanceByClassId(int classId)
         {
             var attendances = await _attendanceService.GetAttendanceByClassId(classId);
@@ -47,6 +51,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> CreateAttendance(Attendance attendance)
         {
             var NewAttendance = await _attendanceService.CreateAttendance(attendance);
@@ -54,6 +59,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> UpdateAttendance(int id, Attendance attendance)
         {
             if (id != attendance.Id)
@@ -66,6 +72,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAttendance(int id)
         {
             var attendance = await _attendanceService.DeleteAttendance(id);

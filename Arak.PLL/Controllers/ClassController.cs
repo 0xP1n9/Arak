@@ -1,5 +1,6 @@
 ﻿using Arak.BLL.Service.Abstraction;
 using Arak.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetClassById(int id)
         {
             var classes = await _classService.GetClassById(id);
@@ -28,6 +30,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateClass(Class classes)
         {
             var CreatedClass= await _classService.CreateClass(classes);

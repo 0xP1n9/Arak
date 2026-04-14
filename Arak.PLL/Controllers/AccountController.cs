@@ -29,6 +29,7 @@ namespace Arak.PLL.Controllers
         
 
         [HttpPost("CreateNewUser")]
+        [Authorize(Roles = "Super Admin")]
         public async Task<IActionResult> CreateNewUser(DtoNewUser user)
         {
             if (ModelState.IsValid)
@@ -115,6 +116,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Super Admin")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var result = await _userService.DeleteUserAsync(id);

@@ -20,15 +20,17 @@ namespace ARAK.PLL.Controllers
 		}
 
 		[HttpGet]
-        [Authorize(Roles = "Parent")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllStudents()
         {
             var allStudents = await _studentService.GetAllStudentsAsync();
 			return Ok(allStudents);
         }
 
+
 		[HttpGet("SearchStudentsById/{Id}")]
-		public async Task<IActionResult> GetStudentByIdAsync(int Id)
+        [Authorize(Roles = "Parent,Admin")]
+        public async Task<IActionResult> GetStudentByIdAsync(int Id)
 		{
 			var student = await _studentService.GetStudentsByIdAsync(Id);
 			if (student == null)
@@ -41,7 +43,8 @@ namespace ARAK.PLL.Controllers
         }
 
 		[HttpGet("{status}")]
-		public async Task<IActionResult> GetStudentsByStatus(bool status)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetStudentsByStatus(bool status)
 		{
 			var students = await _studentService.GetByStatusAsync(status);
 			if (students.Any() == false)
@@ -52,7 +55,8 @@ namespace ARAK.PLL.Controllers
 		}
 
 		[HttpGet("SearchStudentsByName/{name}")]
-		public async Task<IActionResult> GetByNameAsync(string name)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetByNameAsync(string name)
 		{
 			var students = await _studentService.GetByNameAsync(name);
 			if (students.Any() == false) {	
@@ -62,7 +66,8 @@ namespace ARAK.PLL.Controllers
         }
 
 		[HttpGet("SearchStudentsByEmail/{email}")]
-		public async Task<IActionResult> GetByEmailAsync(string email)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetByEmailAsync(string email)
 		{
 			var students = await _studentService.GetByEmailAsync(email);
 			if (students.Any() == false)
@@ -73,6 +78,7 @@ namespace ARAK.PLL.Controllers
 		}
 
         [HttpGet("SearchStudentsByClassId/{classId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetStudentByClassId(int classId)
         {
             var students = await _studentService.GetStudentByClassId(classId);
@@ -84,6 +90,7 @@ namespace ARAK.PLL.Controllers
         }
 
         [HttpGet("CatchStudentsByParentId/{parentId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetStudentByParentId(int parentId)
         {
 			var students = await _studentService.GetStudentByParentId(parentId);
@@ -95,13 +102,15 @@ namespace ARAK.PLL.Controllers
         }
 
         [HttpPost]
-		public async Task<IActionResult> CreateStudent(Student student)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateStudent(Student student)
 		{
 			var Std = await _studentService.CreateAsync(student);
 			return Ok(student);
 		}
 
 		[HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateAsync(int Id,Student student)
 		{
 			if (Id != student.Id)
@@ -113,7 +122,8 @@ namespace ARAK.PLL.Controllers
 		}
 
 		[HttpDelete]
-		public async Task<IActionResult> DeleteAsync(int Id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteAsync(int Id)
 		{
 			var result = await _studentService.DeleteAsync(Id);
 			if (!result)

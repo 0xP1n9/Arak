@@ -1,6 +1,7 @@
 ﻿using Arak.BLL.Service.Abstraction;
 using Arak.BLL.Service.Implementation;
 using Arak.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("GetTimetablesByClassId/{classId}")]
+        [Authorize(Roles = "Parent,Admin")]
         public async Task<IActionResult> GetTimetableByClassId(int classId)
         {
             var timetables = await _timetableService.GetTimetableByClassId(classId);
@@ -29,6 +31,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("GetTimetablesByTeacherId/{teacherId}")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> GetTimetableByTeacherId(int teacherId)
         {
             var timetables = await _timetableService.GetTimetableByTeacherId(teacherId);
@@ -40,7 +43,8 @@ namespace Arak.PLL.Controllers
             return Ok(timetables);
         }
 
-        [HttpGet("GetTimetableInStudent/{StudentClassId}")]
+        [HttpGet("GetTimetableInStudent/{StudentClassId}")]  //attention here plz
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetTimetableInStudent(int TimeClassId, int StudentClassId)
         {
             var timetable = await _timetableService.GetTimetableByClassId(TimeClassId);
@@ -53,6 +57,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddLesson(TimeTable timeTable)
         {
             await _timetableService.AddLesson(timeTable);
@@ -60,6 +65,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateAsync(int Id, TimeTable timeTable)
         {
             if (Id != timeTable.Id)
@@ -71,6 +77,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAsync(int Id)
         {
             var result = await _timetableService.DeleteAsync(Id);

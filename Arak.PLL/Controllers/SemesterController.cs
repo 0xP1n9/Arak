@@ -1,6 +1,7 @@
 ﻿using Arak.BLL.Service.Abstraction;
 using Arak.BLL.Service.Implementation;
 using Arak.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllSemesters()
         {
             var subject = await _semesterService.GetAllSemesters();
@@ -24,6 +26,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetSemesterById(int id)
         {
             var semester = await _semesterService.GetSemestertById(id);
@@ -36,6 +39,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddSemester(Semester semester)
         {
             var NewSemester = await _semesterService.CreateSemester(semester);
@@ -43,6 +47,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateSemester(int id, Semester semester)
         {
             if (id != semester.Id)
@@ -55,6 +60,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteSemester(int id)
         {
             var subject = await _semesterService.DeleteSemester(id);

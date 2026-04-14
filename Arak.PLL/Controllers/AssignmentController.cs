@@ -1,6 +1,7 @@
 ﻿using Arak.BLL.Service.Abstraction;
 using Arak.BLL.Service.Implementation;
 using Arak.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Parent,Teacher,Admin")]
         public async Task<IActionResult> GetAllAssignments()
         {
             var assignments = await _assignmentService.GetAllAssignments();
@@ -24,6 +26,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Parent,Teacher,Admin")]
         public async Task<IActionResult> GetAssignmentById(int id)
         {
             var assignment = await _assignmentService.GetAssignmentsById(id);
@@ -36,6 +39,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("GetAssignmentByClassId/{classId}")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> GetAssignmentByClassId(int classId)
         {
             var Assignment = await _assignmentService.GetAssignmentsByClassId(classId);
@@ -48,6 +52,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> CreateAssignment(Assignment assignment)
         {
             var CreatedAssignment = await _assignmentService.CreateAssignment(assignment);
@@ -55,6 +60,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> DeleteAsync(int Id)
         {
             var result = await _assignmentService.DeleteAsync(Id);

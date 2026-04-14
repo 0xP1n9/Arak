@@ -1,5 +1,6 @@
 ﻿using Arak.BLL.Service.Abstraction;
 using Arak.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllSubjects()
         {
             var subject = await _subjectService.GetAllSubjects();
@@ -23,6 +25,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetSubjectById(int id)
         {
             var subject = await _subjectService.GetSubjectById(id);
@@ -35,6 +38,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddSubject(Subject subject)
         {
             var NewSubject = await _subjectService.CreateSubject(subject);
@@ -42,6 +46,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateSubject(int id,Subject subject)
         {
             if (id != subject.Id)
@@ -54,6 +59,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteSubject(int id)
         {
             var subject = await _subjectService.DeleteSubject(id);

@@ -18,6 +18,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllTeachers()
         {
             var allTeachers = await _teacherService.GetAllTeachersAsync();
@@ -25,6 +26,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("SearchTeachersById/{Id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetTeacherByIdAsync(int Id)
         {
             var teacher = await _teacherService.GetTeachersByIdAsync(Id);
@@ -38,6 +40,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("SearchTeachersByName/{name}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByNameAsync(string name)
         {
             var teacher = await _teacherService.GetByNameAsync(name);
@@ -49,6 +52,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("SearchTeachersByEmail/{email}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetByEmailAsync(string email)
         {
             var teacher = await _teacherService.GetByEmailAsync(email);
@@ -59,18 +63,20 @@ namespace Arak.PLL.Controllers
             return Ok(teacher);
         }
 
-        [HttpGet("SearchTeachersByClassId/{subjectId}")]
-        public async Task<IActionResult> GetTeacherByClassId(int subjectId)
+        [HttpGet("SearchTeachersBySubjectId/{subjectId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetTeacherBySubjectId(int subjectId)
         {
             var teacher = await _teacherService.GetTeachersBySubjectId(subjectId);
             if (teacher.Any() == false)
             {
-                return NotFound($"The ClassId {subjectId} is invalid!");
+                return NotFound($"The Subject {subjectId} is invalid!");
             }
             return Ok(teacher);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateTeacher(Teacher teacher)
         {
             var tchr = await _teacherService.CreateAsync(teacher);
@@ -78,6 +84,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> UpdateAsync(int Id, Teacher teacher)
         {
             if (Id != teacher.Id)
@@ -89,6 +96,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAsync(int Id)
         {
             var result = await _teacherService.DeleteAsync(Id);
