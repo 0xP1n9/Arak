@@ -1,4 +1,6 @@
 ﻿using Arak.BLL.Service.Abstraction;
+using Arak.BLL.Service.Implementation;
+using Arak.DAL.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +16,13 @@ namespace Arak.PLL.Controllers
             _parentService = parentService;
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> CreateStudent(Parent parent)
+        {
+            var prnt = await _parentService.CreateAsync(parent);
+            return Ok(prnt);
+        }
 
     }
 }

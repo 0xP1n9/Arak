@@ -1,5 +1,8 @@
-﻿using Arak.BLL.Service.Abstraction;
+﻿using Arak.BLL.DTO;
+using Arak.BLL.Service.Abstraction;
+using Arak.DAL.Entities;
 using Arak.DAL.Repository.Abstraction;
+using Arak.DAL.Repository.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +19,10 @@ namespace Arak.BLL.Service.Implementation
             _parentRepository = parentRepository;
         }
 
+        public async Task<Parent> CreateAsync(Parent  parent)
+        {
+            return await _parentRepository.CreateAsync(parent);
+        }
 
     }
 }

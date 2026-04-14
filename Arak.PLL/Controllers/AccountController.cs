@@ -39,6 +39,8 @@ namespace Arak.PLL.Controllers
                 IdentityResult result = await _userManager.CreateAsync(appUser, user.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(appUser, user.Role);  //متضافة جديد
+
                     return Ok("Success");
                 }
                 else

@@ -11,7 +11,6 @@ namespace ARAK.PLL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-	[Authorize]
     public class StudentsController : ControllerBase
     {
 		private readonly IStudentService _studentService;
@@ -21,6 +20,7 @@ namespace ARAK.PLL.Controllers
 		}
 
 		[HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllStudents()
         {
             var allStudents = await _studentService.GetAllStudentsAsync();
@@ -102,7 +102,7 @@ namespace ARAK.PLL.Controllers
 		}
 
 		[HttpPut]
-		public async Task<IActionResult> UpdateAsync(int Id,Student student)
+        public async Task<IActionResult> UpdateAsync(int Id,Student student)
 		{
 			if (Id != student.Id)
 			{

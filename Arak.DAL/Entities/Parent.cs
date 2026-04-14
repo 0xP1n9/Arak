@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace Arak.DAL.Entities
@@ -9,6 +10,10 @@ namespace Arak.DAL.Entities
 
 		[JsonIgnore]
         public ICollection<Student> Students { get; set; } = new List<Student>();
-		public ApplicationUser ApplicationUser { get; set; }
+
+        [ForeignKey("ApplicationUser")]
+        public string? ApplicationUserId { get; set; }
+        [JsonIgnore]
+        public ApplicationUser? ApplicationUser { get; set; }
 	}
 }

@@ -13,7 +13,7 @@ namespace Arak.PLL
 {
 	public class Program
 	{
-		public static void Main(string[] args)
+		public static async Task Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +54,25 @@ namespace Arak.PLL
 
             builder.Services.AddCustomJwtAuth(builder.Configuration);
 
+            
+
             var app = builder.Build();
+
+			//Roles 
+			using (var scope = app.Services.CreateScope())
+			{
+				var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+				string[] roles = { "Admin", "Teacher", "Parent" };
+
+				foreach (var role in roles)
+				{
+					if (!await roleManager.RoleExistsAsync(role))
+					{
+						await roleManager.CreateAsync(new IdentityRole(role));
+					}
+				}
+			}
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
