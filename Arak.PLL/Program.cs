@@ -48,9 +48,10 @@ namespace Arak.PLL
 			builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 			builder.Services.AddScoped<IParentService, ParentService>();
 			builder.Services.AddScoped<ITeacherService, TeacherService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
-			//add Swagger UI Service
-			builder.Services.AddEndpointsApiExplorer();
+            //add Swagger UI Service
+            builder.Services.AddEndpointsApiExplorer();
             //builder.Services.AddSwaggerGen();
             builder.Services.AddSwaggerGenJwtAuth();
 
@@ -65,7 +66,7 @@ namespace Arak.PLL
 			{
 				var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-				string[] roles = { "Admin", "Teacher", "Parent" };
+				string[] roles = { "Admin", "Teacher", "Parent", "Super Admin", "Academic Admin", "Fees Admin", "Users Admin" };
 
 				foreach (var role in roles)
 				{

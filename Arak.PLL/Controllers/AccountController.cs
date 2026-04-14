@@ -1,5 +1,7 @@
 ﻿using Arak.BLL.DTO;
+using Arak.BLL.Service.Abstraction;
 using Arak.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +17,12 @@ namespace Arak.PLL.Controllers
     public class AccountController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserService _userService;
         private readonly IConfiguration configuration;
-        public AccountController(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public AccountController(UserManager<ApplicationUser> userManager, IConfiguration configuration, IUserService userService)
         {
             _userManager = userManager;
+            _userService = userService;
             this.configuration = configuration;
         }
 
@@ -39,7 +43,7 @@ namespace Arak.PLL.Controllers
                 IdentityResult result = await _userManager.CreateAsync(appUser, user.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(appUser, user.Role);  //متضافة جديد
+                    await _userManager.AddToRoleAsync(appUser, user.Role);
 
                     return Ok("Success");
                 }
@@ -108,6 +112,17 @@ namespace Arak.PLL.Controllers
                 }
             }
             return BadRequest(ModelState);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var result = await _userService.DeleteUserAsync(id);
+
+            if (!result)
+                return NotFound("User not found");
+
+            return Ok("User soft deleted");
         }
     }
 }
