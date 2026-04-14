@@ -36,6 +36,7 @@ namespace Arak.PLL
 			builder.Services.AddScoped<ISemesterRepository, SemesterRepository>();
 			builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
 			builder.Services.AddScoped<IParentRepository, ParentRepository>();
+			builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 
 			//Services
 			builder.Services.AddScoped<IStudentService, StudentService>();
@@ -46,6 +47,7 @@ namespace Arak.PLL
 			builder.Services.AddScoped<ISemesterService, SemesterService>();
 			builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 			builder.Services.AddScoped<IParentService, ParentService>();
+			builder.Services.AddScoped<ITeacherService, TeacherService>();
 
 			//add Swagger UI Service
 			builder.Services.AddEndpointsApiExplorer();

@@ -6,7 +6,7 @@ namespace Arak.DAL.Entities
 {
     public class Parent 
     {
-		public int ParentId { get; set; }
+		public int Id { get; set; }
 
 		[JsonIgnore]
         public ICollection<Student> Students { get; set; } = new List<Student>();
