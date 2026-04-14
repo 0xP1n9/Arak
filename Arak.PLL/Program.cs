@@ -88,8 +88,36 @@ namespace Arak.PLL
 				}
 			}
 
-			// Configure the HTTP request pipeline.
-			if (app.Environment.IsDevelopment())
+			//Super Admin
+            using (var scope = app.Services.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                string adminEmail = "super_admin@gmail.com";
+                string password = "SuperAdmin@123";
+
+                if (!await roleManager.RoleExistsAsync("Super Admin"))
+                    await roleManager.CreateAsync(new IdentityRole("Super Admin"));
+
+                var admin = await userManager.FindByEmailAsync(adminEmail);
+
+                if (admin == null)
+                {
+                    admin = new ApplicationUser
+                    {
+                        UserName = adminEmail,
+                        Email = adminEmail
+                    };
+
+                    await userManager.CreateAsync(admin, password);
+                    await userManager.AddToRoleAsync(admin, "Super Admin");
+                }
+            }
+			//======================================================================
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
 			{
 				app.UseSwagger();
 				app.UseSwaggerUI();
