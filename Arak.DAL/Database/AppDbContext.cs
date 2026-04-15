@@ -51,6 +51,10 @@ namespace Arak.DAL.Database
             .HasColumnType("time")
             .HasDefaultValueSql("GETDATE()");
 
+            modelBuilder.Entity<Semester>()
+            .Property(e => e.Name)
+            .HasConversion<string>();
+
             modelBuilder.Entity<TimeTable>()
             .Property(e => e.DayOfWeek)
             .HasConversion<string>();
