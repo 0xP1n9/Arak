@@ -49,7 +49,8 @@ namespace Arak.PLL
 			builder.Services.AddScoped<IParentRepository, ParentRepository>();
 			builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 			builder.Services.AddScoped<IEvaluationRepository, EvaluationRepository>();
-            builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+			builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+            builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
             //Services
             builder.Services.AddScoped<IStudentService, StudentService>();
@@ -63,7 +64,8 @@ namespace Arak.PLL
 			builder.Services.AddScoped<ITeacherService, TeacherService>();
 			builder.Services.AddScoped<IUserService, UserService>();
 			builder.Services.AddScoped<IEvaluationService, EvaluationService>();
-            builder.Services.AddScoped<INotificationService, NotificationService>();
+			builder.Services.AddScoped<INotificationService, NotificationService>();
+            builder.Services.AddScoped<IMessageService, MessageService>();
 
             //add Swagger UI Service
             builder.Services.AddEndpointsApiExplorer();

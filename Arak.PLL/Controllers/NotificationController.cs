@@ -25,7 +25,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin,Teacher")]
+        [Authorize(Roles = "Admin,Teacher,Parent")]
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(await _service.GetNotificationById(id));
@@ -46,7 +46,7 @@ namespace Arak.PLL.Controllers
         }
 
         [HttpPut("read/{id}")]
-        [Authorize(Roles = "Parent")]
+        [Authorize(Roles = "Parent,Teacher")]
         public async Task<IActionResult> MarkAsRead(int id)
         {
             return Ok(await _service.MarkAsRead(id));
