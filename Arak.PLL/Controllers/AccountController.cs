@@ -29,7 +29,7 @@ namespace Arak.PLL.Controllers
         
 
         [HttpPost("CreateNewUser")]
-        [Authorize(Roles = "Super Admin")]
+       
         public async Task<IActionResult> CreateNewUser(DtoNewUser user)
         {
             if (ModelState.IsValid)
