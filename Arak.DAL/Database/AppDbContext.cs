@@ -82,5 +82,6 @@ namespace Arak.DAL.Database
         public DbSet<TeacherClass> TeacherClasses { get; set; }
         public DbSet<TeacherSemester> TeacherSemesters { get; set; }
         public DbSet<TimeTable> TimeTables { get; set; }
+        public DbSet<Evaluation> Evaluations { get; set; }
     }
 }
