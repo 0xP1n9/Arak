@@ -6,7 +6,7 @@ namespace Arak.DAL.Entities
     {
         public int Id { get; set; }
 
-        /*[ForeignKey("student")]
+        [ForeignKey("student")]
         public int StudentId { get; set; }
         public Student student { get; set; }
 
@@ -14,6 +14,6 @@ namespace Arak.DAL.Entities
 
         [ForeignKey("subject")]
         public int SubjectId { get; set; }
-        public Subject subject { get; set; }*/
+        public Subject subject { get; set; }
     }
 }
