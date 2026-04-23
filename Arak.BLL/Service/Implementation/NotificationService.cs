@@ -11,44 +11,44 @@ namespace Arak.BLL.Service.Implementation
 {
     public class NotificationService : INotificationService
     {
-        private readonly INotificationRepository _NotificationService;
+        private readonly INotificationRepository _NotificationRepository;
 
-        public NotificationService(INotificationRepository NotificationService)
+        public NotificationService(INotificationRepository NotificationRepository)
         {
-            _NotificationService = NotificationService;
+            _NotificationRepository = NotificationRepository;
         }
 
         public async Task<Notification> CreateNotification(Notification notification)
         {
-            return await _NotificationService.CreateAsync(notification);
+            return await _NotificationRepository.CreateAsync(notification);
         }
 
         public async Task<IEnumerable<Notification>> GetAllNotifications()
         {
-            return await _NotificationService.GetAllAsync();
+            return await _NotificationRepository.GetAllAsync();
         }
 
         public async Task<Notification> GetNotificationById(int id)
         {
-            return await _NotificationService.GetByIdAsync(id);
+            return await _NotificationRepository.GetByIdAsync(id);
         }
 
         public async Task<IEnumerable<Notification>> GetUserNotifications(int userId)
         {
-            var all = await _NotificationService.GetAllAsync();
+            var all = await _NotificationRepository.GetAllAsync();
             return all.Where(x => x.UserId == userId);
         }
 
         public async Task<Notification> MarkAsRead(int id)
         {
-            var notif = await _NotificationService.GetByIdAsync(id);
+            var notif = await _NotificationRepository.GetByIdAsync(id);
             notif.IsRead = true;
-            return await _NotificationService.UpdateAsync(notif);
+            return await _NotificationRepository.UpdateAsync(notif);
         }
 
         public async Task<bool> DeleteNotification(int id)
         {
-            return await _NotificationService.DeleteAsync(id);
+            return await _NotificationRepository.DeleteAsync(id);
         }
     }
 }
