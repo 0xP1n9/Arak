@@ -65,7 +65,8 @@ namespace Arak.PLL
 			builder.Services.AddScoped<IUserService, UserService>();
 			builder.Services.AddScoped<IEvaluationService, EvaluationService>();
 			builder.Services.AddScoped<INotificationService, NotificationService>();
-            builder.Services.AddScoped<IMessageService, MessageService>();
+			builder.Services.AddScoped<IMessageService, MessageService>();
+            builder.Services.AddScoped<IFileService, FileService>();
 
             //add Swagger UI Service
             builder.Services.AddEndpointsApiExplorer();
@@ -132,8 +133,8 @@ namespace Arak.PLL
 			app.UseAuthentication();
 			app.UseAuthorization();
 
-
-			app.MapControllers();
+            app.UseStaticFiles();
+            app.MapControllers();
 
 			app.Run();
 		}
