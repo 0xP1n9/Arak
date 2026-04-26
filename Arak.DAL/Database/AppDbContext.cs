@@ -85,5 +85,6 @@ namespace Arak.DAL.Database
         public DbSet<Evaluation> Evaluations { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }
